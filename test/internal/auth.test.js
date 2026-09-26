@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { expect } from 'chai';
 import mongoose from 'mongoose';
-import app from '../src/app.js';
+import app from '../../src/app.js';
 
 describe('POST /api/auth/login', () => {
   after(async () => {

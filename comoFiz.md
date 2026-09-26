@@ -1,0 +1,7 @@
+1. Baixei o mongodb e expus ele na porta 27017, após isso executei o servidor e conferi que surgiram os bancos, as tabelas e alguns dados.
+2. Instalei as dependências de teste: mocha, supertest, chai. com npm i mocha chai supertest
+3. Analisando o exercício proposto eu sujiro que os testes sejam externos, ou seja, executados via http. Porque o exercício exige a automação de uma jornada completa de usuária e o teste externo é o que mais reproduz de forma extremametne parecida de um cliente real entregando um nível de confiança maior. Por isso, estarei excluindo a pasta internal.
+4. O primeiro passo é deixar pronto o arquivo .env para guardar as variáveis sensíveis. Então criei esse arquivo e criei um .env.example para documentação. Além disse adicionionei o .env no .gitignore
+5. Estou com dificuldade de enxergar os dados que preciso na massa de teste, então vou começar criando os testes mesmo. Sei que logar é algo que repete o tempo todo, e para ter o melhor reaproveitamento de código já vou criar um arquivo no helplers que faz essa autenticação
+6. Penso que como o token do admin são dados estáticos e conhecidos pelo .env, acho válido aproveitar ele, já que seu tempo para expirar é longo o suficiente para rodar os testes necessários. Então vou guardar o token do admin em cache
+7. 
