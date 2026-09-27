@@ -1,0 +1,18 @@
+[
+  {
+    "testeTitulo": "Validar o registro da entrega de um trabalho é realizado com sucesso por um aluno autenticado",
+    "trabalho": {
+      "titulo": "Automação com SuperTest",
+      "descricao": "Entrega via pipeline"
+    },
+    "statusCodeEsperado": 201
+  },
+  {
+    "testeTitulo": "Validar o erro ao entregar um trabalho sem título pelo aluno autenticado",
+    "trabalho": {
+      "titulo": "",
+      "descricao": "Faltou o título"
+    },
+    "statusCodeEsperado": 400
+  }
+]
