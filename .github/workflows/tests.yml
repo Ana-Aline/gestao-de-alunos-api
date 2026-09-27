@@ -51,7 +51,7 @@ jobs:
       - name: Executar testes e gerar relatório
         run: npm test
         env:
-          BASE_URL: ${{ secrets.URL_BASE}}
+          BASE_URL: ${{ secrets.BASE_URL}}
           MONGODB_URI: mongodb://127.0.0.1:27017/gestao-de-alunos
           ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
           ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
