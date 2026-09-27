@@ -12,7 +12,7 @@ describe('Registrar Entrega de Trabalho como Aluno', () => {
     after(async () => {
         await mongoose.connection.close();
     });
-    
+
     dadosTrabalho.forEach((cenario) => {
 
     
@@ -41,7 +41,6 @@ describe('Registrar Entrega de Trabalho como Aluno', () => {
                 .send({
                     alunoId: alunoId
                 });
-            const matriculaId = cadastroMatriculaResposta.body.id;
 
             //Act
             const cadastrarTrabalho = await request(BASE_URL)
@@ -53,24 +52,18 @@ describe('Registrar Entrega de Trabalho como Aluno', () => {
                     titulo: cenario.trabalho.titulo,
                     descricao: cenario.trabalho.descricao
                 });
-            const trabalhoId = cadastrarTrabalho.body.id
             
             //Assert
             expect(cadastrarTrabalho.status).to.equal(cenario.statusCodeEsperado);
 
-            if(cenario.statusCodeEsperado === 201) {
-            const consultarTrabalho = await request(BASE_URL)
-                .get(`/api/admin/trabalhos/${trabalhoId}`)
-                .set('Content-Type', 'application/json')
-                .set('Authorization', await getTokenAdmin())
-
-                
-                expect(consultarTrabalho.status).to.equal(200);
-                expect(consultarTrabalho.body.alunoId).to.equal(alunoId);
-                expect(consultarTrabalho.body.disciplinaId).to.equal(disciplinaId);
-                expect(consultarTrabalho.body.titulo).to.equal(cenario.trabalho.titulo);
-                expect(consultarTrabalho.body.descricao).to.equal(cenario.trabalho.descricao);
-                expect(consultarTrabalho.body.status).to.equal('entregue');
+            if(cenario.statusCodeEsperado === 201) { 
+                expect(cadastrarTrabalho.status).to.equal(200);
+                expect(cadastrarTrabalho.body.alunoId).to.equal(alunoId);
+                expect(cadastrarTrabalho.body.disciplinaId).to.equal(disciplinaId);
+                expect(cadastrarTrabalho.body.titulo).to.equal(cenario.trabalho.titulo);
+                expect(cadastrarTrabalho.body.descricao).to.equal(cenario.trabalho.descricao);
+                expect(cadastrarTrabalho.body.status).to.equal('entregue');
+                expect(cadastrarTrabalho.body).to.have.property('id').that.is.not.null;
             }
         })
     })

@@ -1,4 +1,4 @@
-name: Testes de API
+name: Testes de API - Trabalho Final
 
 on:
   push:
@@ -34,7 +34,26 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
-      - name: Executar testes
+      - name: Subir a API em background
+        run: npm start &
+        env:
+          PORT: 3000
+          MONGODB_URI: mongodb://127.0.0.1:27017/gestao-de-alunos
+
+      - name: Aguardar inicialização do servidor
+        run: sleep 3
+
+      - name: Executar testes e gerar relatório
         run: npm test
         env:
-          MONGODB_URI: mongodb://127.0.0.1:27017/gestao-de-alunos-test
+          BASE_URL: ${{ secrets.URL_BASE}}
+          MONGODB_URI: mongodb://127.0.0.1:27017/gestao-de-alunos
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+
+      - name: Salvar Relatório de Testes como Artefato
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: relatorio-testes-mochawesome
+          path: mochawesome-report/
