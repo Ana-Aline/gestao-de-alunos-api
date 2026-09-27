@@ -41,7 +41,12 @@ jobs:
           MONGODB_URI: mongodb://127.0.0.1:27017/gestao-de-alunos
 
       - name: Aguardar inicialização do servidor
-        run: sleep 3
+        run: |
+          echo "Aguardando a API responder..."
+          until curl -s http://localhost:3000; do
+            sleep 1
+          done
+          echo "API está no ar!"
 
       - name: Executar testes e gerar relatório
         run: npm test
