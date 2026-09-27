@@ -16,7 +16,7 @@ describe('Registrar Entrega de Trabalho como Aluno', () => {
     dadosTrabalho.forEach((cenario) => {
 
     
-        it.only(cenario.testeTitulo, async () => {
+        it(cenario.testeTitulo, async () => {
             //Arrange
             //cadastrar o aluno | cadastrar a disciplina | cadastrar aluno na disciplina | logar como aluno
             const aluno = novoAluno()
