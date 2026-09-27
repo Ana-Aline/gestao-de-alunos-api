@@ -1,0 +1,12 @@
+1. Baixei o mongodb e expus ele na porta 27017, após isso executei o servidor e conferi que surgiram os bancos, as tabelas e alguns dados.
+2. Instalei as dependências de teste: mocha, supertest, chai. com npm i mocha chai supertest
+3. Analisando o exercício proposto eu sujiro que os testes sejam externos, ou seja, executados via http. Porque o exercício exige a automação de uma jornada completa de usuária e o teste externo é o que mais reproduz de forma extremametne parecida de um cliente real entregando um nível de confiança maior. Por isso, estarei excluindo a pasta internal.
+4. O primeiro passo é deixar pronto o arquivo .env para guardar as variáveis sensíveis. Então criei esse arquivo e criei um .env.example para documentação. Além disse adicionionei o .env no .gitignore
+5. Estou com dificuldade de enxergar os dados que preciso na massa de teste, então vou começar criando os testes mesmo. Sei que logar é algo que repete o tempo todo, e para ter o melhor reaproveitamento de código já vou criar um arquivo no helplers que faz essa autenticação
+6. Penso que como o token do admin são dados estáticos e conhecidos pelo .env, acho válido aproveitar ele, já que seu tempo para expirar é longo o suficiente para rodar os testes necessários. Então vou guardar o token do admin em cache
+7. Pensando no teste em si, na primeira instrução o Júlio colocou uma cadeia de ações. Eu entendi que o objetivo do teste seja validar o registro da entrega de um trabalho é realizado com sucesso por um aluno autenticado, então seria um describe de REGISTRAR ENTREGA DE TRABALHO COMO ALUNO.
+8. Como pre-requisito eu preciso cadastrar um aluno, esse aluno tem um body que faz sentido estar dentro de uma factory para evitarmos o erro 409.
+9. Para os dados relacionados aos trabalhos (assignments), decidi utilizar Fixtures separadamente, guardando dados estáticos e estruturados específicos para o envio, mantendo a massa de teste organizada e fácil de manter.
+10. Tive erros de ERR_MODULE_NOT_FOUND, aconteceu porque esqueci de instalar o dotenv, o faker.
+11. Decidi estruturar a execução principal centralizando o fluxo em um único it robusto dentro do describe. Como o objetivo central é testar a jornada de ponta a ponta (o aluno entregando o trabalho), fazer o setup da massa, logar como admin, cadastrar o aluno, logar com o recém-criado e mandar a entrega de forma encadeada garantiu que o teste reproduza exatamente o comportamento real do usuário no sistema sem quebrar dependências de estado.
+12. Por fim instalei o mocha-awsome e codei a pipe.
