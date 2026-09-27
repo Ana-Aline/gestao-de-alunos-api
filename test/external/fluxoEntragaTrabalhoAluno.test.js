@@ -3,18 +3,13 @@ import request from 'supertest';
 import { getTokenAdmin, realizarLogin } from '../helpers/auth.js';
 import { novoAluno } from '../factories/alunosFactory.js';
 import { novaDisciplina } from '../factories/disciplinasFactory.js';
-import mongoose from 'mongoose';
 import dadosTrabalho from '../fixtures/trabalhos.json' with { type: 'json' };
 
 const BASE_URL = process.env.BASE_URL;
 
 describe('Registrar Entrega de Trabalho como Aluno', () => {
-    after(async () => {
-        await mongoose.connection.close();
-    });
 
     dadosTrabalho.forEach((cenario) => {
-
     
         it(cenario.testeTitulo, async () => {
             //Arrange
@@ -57,7 +52,6 @@ describe('Registrar Entrega de Trabalho como Aluno', () => {
             expect(cadastrarTrabalho.status).to.equal(cenario.statusCodeEsperado);
 
             if(cenario.statusCodeEsperado === 201) { 
-                expect(cadastrarTrabalho.status).to.equal(200);
                 expect(cadastrarTrabalho.body.alunoId).to.equal(alunoId);
                 expect(cadastrarTrabalho.body.disciplinaId).to.equal(disciplinaId);
                 expect(cadastrarTrabalho.body.titulo).to.equal(cenario.trabalho.titulo);
